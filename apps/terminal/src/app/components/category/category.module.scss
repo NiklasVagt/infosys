@@ -1,0 +1,42 @@
+.container {
+  background-color: hsl(var(--info-secondary));
+  color: hsl(var(--info-secondary-text));
+  text-align: center;
+  padding: 0.5rem;
+  border-radius: var(--info-border-card);
+
+  h2 {
+    margin: 1rem;
+  }
+}
+
+.button-list {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  gap: 1rem;
+  justify-content: center;
+
+  button {
+    $size: 4rem;
+
+    width: $size;
+    height: $size;
+
+    background-color: hsl(var(--info-blue));
+    opacity: 0.8;
+    color: hsl(var(--info-blue-text));
+
+    cursor: pointer;
+    outline: none;
+    border: none;
+    border-radius: var(--info-border-card);
+
+    transition: 400ms cubic-bezier(0.19, 1, 0.22, 1) all;
+
+    &:hover {
+      opacity: 1;
+      color: white;
+    }
+  }
+}

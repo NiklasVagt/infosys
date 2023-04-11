@@ -1,1 +1,17 @@
 /* Your styles goes here. */
+.shell {
+  display: grid;
+
+  gap: 1rem;
+  grid-template-areas:
+    'heading sidebar'
+    'category sidebar';
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 1fr 12rem;
+
+  width: 100vw;
+  height: 100vh;
+
+  background-color: hsl(var(--info-blue));
+  color: hsl(var(--info-blue-text));
+}
