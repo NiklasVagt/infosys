@@ -24,7 +24,8 @@
       "executor": "@nrwl/vite:dev-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "terminal:build"
+        "buildTarget": "terminal:build",
+        "proxyConfig": "apps/terminal/proxy.conf.json"
       },
       "configurations": {
         "development": {
