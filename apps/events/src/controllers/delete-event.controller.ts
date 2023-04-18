@@ -4,7 +4,7 @@ import { EventsRepository } from '../services/events.repository';
 /** Delete a single event by its ID. */
 export const deleteEvent =
   (events: EventsRepository): RequestHandler<{ id: string }> =>
-  (req, res) => {
+  async (req, res) => {
     try {
       const id = +req.params.id;
       // Check id path param is valid
@@ -16,7 +16,7 @@ export const deleteEvent =
       }
 
       // Get event from db via repository
-      const eventList = events.deleteEvent(id);
+      const eventList = await events.deleteEvent(id);
       // Return eventList
       return res.json(eventList);
     } catch (err) {

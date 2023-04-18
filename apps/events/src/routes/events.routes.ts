@@ -2,12 +2,12 @@ import { Router } from 'express';
 import { readEvent, readEventList } from '../controllers/read-event.controller';
 import { createEvent } from '../controllers/create-event.controller';
 import { EventsRepository } from '../services/events.repository';
-import { events } from '../db';
 import { updateEvent } from '../controllers/update-event.controller';
 import { deleteEvent } from '../controllers/delete-event.controller';
+import { prisma } from '../services/prisma.service';
 
 // Create an events repository service and provide the database via dependency injection.
-const eventsRepo = new EventsRepository(events);
+const eventsRepo = new EventsRepository(prisma);
 
 export const router = Router();
 
