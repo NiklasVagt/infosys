@@ -24,11 +24,11 @@ class AuthService {
    * 4. BE sends created token back to FE
    */
   public async createToken({ username, password }: LoginDto) {
-    const user = await this.users.findUnique({ where: { username } });
-    if (!user) throw new NotFoundError();
+    // const user = await this.users.findUnique({ where: { username } });
+    // if (!user) throw new NotFoundError();
 
-    const isValidPassword = compare(password, user.password);
-    if (!isValidPassword) throw new UnauthorizedError();
+    // const isValidPassword = compare(password, user.password);
+    // if (!isValidPassword) throw new UnauthorizedError();
 
     return sign({ sub: 1 }, SECRET, {
       expiresIn: EXPIRATION,

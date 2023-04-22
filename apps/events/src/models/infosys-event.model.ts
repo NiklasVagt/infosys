@@ -1,4 +1,4 @@
-import { InfosysEvent } from '@prisma/client';
+import { InfosysEvent } from '@infosys/events-prisma';
 
 /** Assert an object is of type InfosysEvent. */
 export const isInfosysEvent = (

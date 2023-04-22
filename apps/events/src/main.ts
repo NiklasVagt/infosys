@@ -1,5 +1,5 @@
 import express from 'express';
-import { json } from 'body-parser';
+import { json, urlencoded } from 'body-parser';
 import { join } from 'path';
 import { AuthMiddleware } from './middlewares/auth.middleware';
 import { router as eventsRouter } from './routes/events.routes';
@@ -11,6 +11,7 @@ app.use('/assets', express.static(join(__dirname, 'assets')));
 
 // Parse json bodies and attach to req object.
 app.use(json());
+app.use(urlencoded());
 
 // Setup /api/events
 app.use('/api/events', AuthMiddleware());
