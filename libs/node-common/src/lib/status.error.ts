@@ -39,3 +39,15 @@ export class RangeError extends StatusError {
     super(`Value out of range`, 416);
   }
 }
+
+export class ConflictError extends StatusError {
+  constructor(id: string | number = '???') {
+    super(`Resource with id ${id} already exists`, 409);
+  }
+}
+
+export class RangeError extends StatusError {
+  constructor() {
+    super(`Value out of range`, 416);
+  }
+}
