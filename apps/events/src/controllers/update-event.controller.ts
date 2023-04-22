@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express';
 import { EventsRepository } from '../services/events.repository';
-import { BadRequestError } from '../utils/status.error';
+import { BadRequestError } from '@infosys/node-common';
 
 /** Update a single event by its ID. */
 export const updateEvent =
