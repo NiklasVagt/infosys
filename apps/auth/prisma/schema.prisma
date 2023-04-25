@@ -1,11 +1,11 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../../../node_modules/@infosys/auth"
+  output   = "../../../node_modules/@infosys/auth-prisma"
 }
 
 datasource db {
   provider = "sqlite"
-  url      = "file:./db.sql"
+  url      = "file:./db.sqlite"
 }
 
 model User {

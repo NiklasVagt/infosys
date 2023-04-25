@@ -1,3 +1,3 @@
-import { User } from '@prisma/client';
+import { User } from '@infosys/auth-prisma';
 
 export type LoginDto = Pick<User, 'username' | 'password'>;

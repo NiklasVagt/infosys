@@ -1,11 +1,18 @@
-import { sign } from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
 import { compare } from 'bcrypt';
-import { PrismaClient } from '@prisma/client';
-import { NotFoundError, UnauthorizedError } from '@infosys/node-common';
+import { PrismaClient, User } from '@infosys/auth-prisma';
+import {
+  BEARER_PREFIX,
+  ForbiddenError,
+  NotFoundError,
+  UnauthorizedError,
+} from '@infosys/node-common';
 import { LoginDto } from '@infosys/dtos';
 import { prisma } from './prisma.service';
 
-const SECRET = 'if-you-can-read-this-you-need-no-glasses';
+// NEVER STORE PRODUCTION SECRETS IN CODE
+const SECRET = process.env.SECRET ?? 'if-you-can-read-this-you-need-no-glasses';
+const EXPIRATION = '1h';
 
 class AuthService {
   constructor(private users: PrismaClient['user']) {}
@@ -24,7 +31,7 @@ class AuthService {
     if (!isValidPassword) throw new UnauthorizedError();
 
     return sign({ sub: 1 }, SECRET, {
-      expiresIn: '1h',
+      expiresIn: EXPIRATION,
       algorithm: 'HS256',
     });
   }
@@ -37,8 +44,23 @@ class AuthService {
    * 5. BE validates token
    * 6. Execute API function
    */
-  public async validateToken() {
-    console.log('TODO');
+  public async validateToken(
+    bearer: `${typeof BEARER_PREFIX}${string}`
+  ): Promise<User> {
+    const [, token] = bearer.split('Bearer ');
+
+    const payload = verify(token, SECRET, {
+      maxAge: EXPIRATION,
+      algorithms: ['HS256'],
+    });
+
+    if (typeof payload === 'string' || payload.sub == null)
+      throw new ForbiddenError();
+
+    const user = await this.users.findUnique({ where: { id: +payload.sub } });
+    if (!user) throw new ForbiddenError();
+
+    return user;
   }
 }
 

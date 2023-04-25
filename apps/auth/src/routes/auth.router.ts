@@ -1,7 +1,12 @@
 import { Router } from 'express';
 import { authService } from '../services/auth.service';
 import { LoginDto } from '@infosys/dtos';
-import { BadRequestError, StatusError } from '@infosys/node-common';
+import {
+  BEARER_PREFIX,
+  BadRequestError,
+  ForbiddenError,
+  handleHttpError,
+} from '@infosys/node-common';
 
 export const router = Router();
 
@@ -15,11 +20,28 @@ router.post<LoginDto>('/login', async (req, res) => {
 
     return res.json({ token });
   } catch (err) {
-    console.error(err);
-    return res.status(err.code ?? 500).json({ err: err.message });
+    const { code, body } = handleHttpError(err);
+    return res.status(code).json(body);
   }
 });
 
-router.get('/verify', () => {
-  console.log('TODO');
+const isBearerString = (
+  maybeBearer: string
+): maybeBearer is `${typeof BEARER_PREFIX}${string}` =>
+  maybeBearer.startsWith(BEARER_PREFIX);
+
+router.get('/verify', async (req, res) => {
+  try {
+    const bearer = req.headers.authorization;
+
+    if (!bearer) throw new ForbiddenError();
+    if (!isBearerString(bearer)) throw new ForbiddenError();
+
+    const user = await authService.validateToken(bearer);
+
+    return res.json(user);
+  } catch (err) {
+    const { code, body } = handleHttpError(err);
+    return res.status(code).json(body);
+  }
 });
