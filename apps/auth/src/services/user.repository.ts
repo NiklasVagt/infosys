@@ -27,6 +27,14 @@ export class UserRepository {
       .catch(handlePrismaError(id));
   }
 
+  public getUserByUsername(username: User['username']): Promise<User> {
+    return this.users
+      .findUniqueOrThrow({
+        where: { username },
+      })
+      .catch(handlePrismaError(username));
+  }
+
   public updateUser(
     id: User['id'],
     userDto: Prisma.UserUpdateInput
