@@ -1,12 +1,11 @@
 import { RequestHandler } from 'express';
-import { RequeustWithUser } from '../models/request-with-user.model';
 import { isInfosysEvent } from '../models/infosys-event.model';
 import { EventsRepository } from '../services/events.repository';
 
 /** Create a new event and insert it into the list of events. */
 export const createEvent =
   (events: EventsRepository): RequestHandler =>
-  async (req: RequeustWithUser, res) => {
+  async (req, res) => {
     const eventDto = req.body;
 
     // Check has body

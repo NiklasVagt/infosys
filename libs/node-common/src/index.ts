@@ -4,3 +4,4 @@ export * from './lib/prisma.error-handler';
 export * from './lib/status.error';
 export * from './lib/prisma.error-handler';
 export * from './lib/http.error-handler';
+export * from './lib/request-with-user.model';
