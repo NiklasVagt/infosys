@@ -1,7 +1,6 @@
 import express from 'express';
 import { json, urlencoded } from 'body-parser';
 import { join } from 'path';
-import { AuthMiddleware } from './middlewares/auth.middleware';
 import { router as eventsRouter } from './routes/events.routes';
 
 const app = express();
@@ -14,7 +13,6 @@ app.use(json());
 app.use(urlencoded());
 
 // Setup /api/events
-app.use('/api/events', AuthMiddleware());
 app.use('/api/events', eventsRouter);
 
 // Start server and listen on PORT env variable or 3333 fallback.

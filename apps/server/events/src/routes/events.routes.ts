@@ -5,11 +5,14 @@ import { EventsRepository } from '../services/events.repository';
 import { updateEvent } from '../controllers/update-event.controller';
 import { deleteEvent } from '../controllers/delete-event.controller';
 import { prisma } from '../services/prisma.service';
+import { auth } from '../middlewares/auth.middleware';
 
 // Create an events repository service and provide the database via dependency injection.
 const eventsRepo = new EventsRepository(prisma);
 
 export const router = Router();
+
+router.use(auth());
 
 router
   .route('/')

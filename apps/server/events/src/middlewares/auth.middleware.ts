@@ -1,9 +1,17 @@
-import { RequestWithUser } from '@infosys/node-common';
+import { RequestWithUser, handleHttpError } from '@infosys/node-common';
+import axios from 'axios';
+import { RequestHandler } from 'express';
 
-export const AuthMiddleware = () => (req: RequestWithUser, res, next) => {
-  const user = { id: 0, username: 'Ben' };
+export const auth =
+  (): RequestHandler => async (req: RequestWithUser, res, next) => {
+    try {
+      await axios.get('http://localhost:3334/api/verify', {
+        headers: { Authorization: req.headers.authorization },
+      });
 
-  req.user = user;
-
-  next();
-};
+      next();
+    } catch (err) {
+      const { code, body } = handleHttpError(err);
+      res.status(code).json(body);
+    }
+  };
