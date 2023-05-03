@@ -9,10 +9,14 @@ export const hashPassword =
     if (!actions.includes(params.action)) return await next(params);
     if (params.model !== 'User') return await next(params);
 
-    const password = params.args?.data?.password as string | undefined;
+    const password =
+      params.args?.data?.password ?? params.args?.create?.password;
     if (password == null) return await next(params);
 
-    params.args.data.password = await hash(password, SALT_ROUNDS);
+    (params.args.data ?? params.args.create).password = await hash(
+      password,
+      SALT_ROUNDS
+    );
 
     return await next(params);
   };
