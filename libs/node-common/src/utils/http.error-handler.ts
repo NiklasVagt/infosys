@@ -1,12 +1,13 @@
 import { AxiosError } from 'axios';
 import { StatusError } from './status.error';
 import { JsonWebTokenError } from 'jsonwebtoken';
+import { ErrorDto } from '@infosys/dtos';
 
 export function handleHttpError(
   err: StatusError | AxiosError | JsonWebTokenError | Error
 ): {
   code: number;
-  body: { message: string };
+  body: ErrorDto;
 } {
   console.error('HTTP_ERROR', err);
   if (err instanceof StatusError)

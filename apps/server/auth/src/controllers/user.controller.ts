@@ -1,11 +1,12 @@
 import { RequestHandler } from 'express';
 import { UserRepository, userRepo } from '../services/user.repository';
 import { BadRequestError, handleHttpError } from '@infosys/node-common';
+import { ErrorDto, UserDto } from '@infosys/dtos';
 
 export class UserController<ItemParams extends Record<'id', string>> {
   constructor(private users: UserRepository) {}
 
-  getAllUsers(): RequestHandler {
+  getAllUsers(): RequestHandler<null, UserDto[] | ErrorDto> {
     return async (req, res) => {
       try {
         const users = await this.users.getAllUsers();
@@ -17,7 +18,7 @@ export class UserController<ItemParams extends Record<'id', string>> {
     };
   }
 
-  createUser(): RequestHandler {
+  createUser(): RequestHandler<null, UserDto | ErrorDto> {
     return async (req, res) => {
       try {
         const userDto = req.body;
@@ -33,7 +34,7 @@ export class UserController<ItemParams extends Record<'id', string>> {
     };
   }
 
-  getUser(): RequestHandler<ItemParams> {
+  getUser(): RequestHandler<ItemParams, UserDto | ErrorDto> {
     return async (req, res) => {
       try {
         const id = +req.params.id;
@@ -49,7 +50,7 @@ export class UserController<ItemParams extends Record<'id', string>> {
     };
   }
 
-  updateUser(): RequestHandler<ItemParams> {
+  updateUser(): RequestHandler<ItemParams, UserDto | ErrorDto> {
     return async (req, res) => {
       try {
         const id = +req.params.id;
@@ -67,7 +68,7 @@ export class UserController<ItemParams extends Record<'id', string>> {
     };
   }
 
-  deleteUser(): RequestHandler<ItemParams> {
+  deleteUser(): RequestHandler<ItemParams, UserDto[] | ErrorDto> {
     return async (req, res) => {
       try {
         const id = +req.params.id;

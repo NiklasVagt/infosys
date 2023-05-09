@@ -1,13 +1,13 @@
 import { Router } from 'express';
 import { authService } from '../services/auth.service';
-import { LoginDto } from '@infosys/dtos';
+import { ErrorDto, LoginDto, TokenDto } from '@infosys/dtos';
 import { BadRequestError, RequestWithUser } from '@infosys/node-common';
 import { auth } from '../middlewares/auth.middleware';
 
 export const authRouter = () => {
   const router = Router();
 
-  router.post<LoginDto>('/login', async (req, res) => {
+  router.post<LoginDto, TokenDto | ErrorDto>('/login', async (req, res) => {
     try {
       const dto = req.body;
 
@@ -18,7 +18,7 @@ export const authRouter = () => {
       return res.json({ token });
     } catch (err) {
       console.error(err);
-      return res.status(err.code ?? 500).json({ err: err.message });
+      return res.status(err.code ?? 500).json({ message: err.message });
     }
   });
 
