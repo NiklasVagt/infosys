@@ -24,15 +24,16 @@
       "executor": "@nrwl/vite:dev-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "client-admin:build"
+        "buildTarget": "admin:build",
+        "proxyConfig": "libs/client-common/proxy.conf.json"
       },
       "configurations": {
         "development": {
-          "buildTarget": "client-admin:build:development",
+          "buildTarget": "admin:build:development",
           "hmr": true
         },
         "production": {
-          "buildTarget": "client-admin:build:production",
+          "buildTarget": "admin:build:production",
           "hmr": false
         }
       }
@@ -41,14 +42,14 @@
       "executor": "@nrwl/vite:preview-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "client-admin:build"
+        "buildTarget": "admin:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "client-admin:build:development"
+          "buildTarget": "admin:build:development"
         },
         "production": {
-          "buildTarget": "client-admin:build:production"
+          "buildTarget": "admin:build:production"
         }
       }
     },

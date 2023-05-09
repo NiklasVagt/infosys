@@ -33,7 +33,7 @@
     "serve": {
       "executor": "@nrwl/js:node",
       "defaultConfiguration": "development",
-      "dependsOn": ["prisma-generate"],
+      "dependsOn": ["prisma-generate", "prisma-deploy"],
       "options": {
         "buildTarget": "auth:build"
       },

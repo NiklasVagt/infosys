@@ -16,6 +16,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@infosys/client-common": ["libs/client-common/src/index.ts"],
       "@infosys/dtos": ["libs/dtos/src/index.ts"],
       "@infosys/node-common": ["libs/node-common/src/index.ts"]
     }

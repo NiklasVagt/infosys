@@ -24,16 +24,16 @@
       "executor": "@nrwl/vite:dev-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "client-terminal:build",
-        "proxyConfig": "apps/client/terminal/proxy.conf.json"
+        "buildTarget": "terminal:build",
+        "proxyConfig": "libs/client-common/proxy.conf.json"
       },
       "configurations": {
         "development": {
-          "buildTarget": "client-terminal:build:development",
+          "buildTarget": "terminal:build:development",
           "hmr": true
         },
         "production": {
-          "buildTarget": "client-terminal:build:production",
+          "buildTarget": "terminal:build:production",
           "hmr": false
         }
       }
@@ -42,14 +42,14 @@
       "executor": "@nrwl/vite:preview-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "client-terminal:build"
+        "buildTarget": "terminal:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "client-terminal:build:development"
+          "buildTarget": "terminal:build:development"
         },
         "production": {
-          "buildTarget": "client-terminal:build:production"
+          "buildTarget": "terminal:build:production"
         }
       }
     },
@@ -71,7 +71,7 @@
     "serve-static": {
       "executor": "@nrwl/web:file-server",
       "options": {
-        "buildTarget": "client-terminal:build"
+        "buildTarget": "terminal:build"
       }
     }
   },
