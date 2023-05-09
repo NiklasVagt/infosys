@@ -23,9 +23,9 @@
     width: $size;
     height: $size;
 
-    background-color: hsl(var(--info-blue));
+    background-color: hsl(var(--info-bg));
     opacity: 0.8;
-    color: hsl(var(--info-blue-text));
+    color: hsl(var(--info-bg-text));
 
     cursor: pointer;
     outline: none;
