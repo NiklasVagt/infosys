@@ -1,0 +1,43 @@
+@use 'sass:color';
+
+$bg: 230, 30%, 10%;
+$bg-text: 230, 30%, 90%;
+
+$primary: 230, 90%, 75%;
+$primary-text: 230, 90%, 20%;
+
+$secondary: 180, 75%, 50%;
+$secondary-text: 180, 10%, 10%;
+
+$error: 0, 60%, 55%;
+
+$shadow-bg: hsla(nth($primary, 1), nth($primary, 2), nth($primary, 3), 0.3);
+$shadow: color.scale($shadow-bg, $lightness: -95%, $saturation: -10%);
+
+:root {
+  // Sidebar
+  --sidebar-width: 8rem;
+
+  // Colors
+  --info-bg: #{$bg};
+  --info-bg-text: #{$bg-text};
+
+  --info-primary: #{$primary};
+  --info-primary-text: #{$primary-text};
+
+  --info-secondary: #{$secondary};
+  --info-secondary-text: #{$secondary-text};
+
+  --info-error: #{$error};
+
+  // Spacing
+  --info-border-card: 0.25rem;
+
+  // Shadow
+
+  --info-shadow-xs: 0 1px 3px 0 #{$shadow}, 0 2px 6px 0 #{$shadow};
+  --info-shadow-sm: 0 2px 6px 0 #{$shadow}, 0 4px 12px 0 #{$shadow};
+  --info-shadow-md: 0 3px 12px 0 #{$shadow}, 0 5px 24px 0 #{$shadow};
+  --info-shadow-lg: 0 6px 24px 0 #{$shadow}, 0 8px 36px 0 #{$shadow},
+    0 3px 24px 0 #{$shadow};
+}

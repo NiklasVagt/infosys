@@ -14,9 +14,27 @@ input {
 
 .form-field {
   display: flex;
+  align-items: center;
 
   input {
     width: 100%;
+  }
+
+  .prefix {
+    display: block;
+    background-color: hsla(var(--info-bg-text), 0.1);
+    font-size: 1.5rem;
+
+    border-top-left-radius: var(--info-border-card);
+    border-bottom-left-radius: var(--info-border-card);
+    height: 0.85rem;
+    width: fit-content;
+    padding: 0.5rem;
+
+    & + input {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
   }
 
   &-group input {

@@ -1,4 +1,3 @@
-import { Icon } from '@iconify/react';
 import LoginForm from '../components/login-form/login-form';
 import styles from './login-page.module.scss';
 
@@ -8,12 +7,11 @@ export interface LoginPageProps {}
 export function LoginPage(props: LoginPageProps) {
   return (
     <div className={styles['container']}>
-      <h1>
-        <Icon icon="carbon:login"></Icon>
-        <span>Login</span>
-      </h1>
+      <div className="card">
+        <h1>Login</h1>
 
-      <LoginForm></LoginForm>
+        <LoginForm></LoginForm>
+      </div>
     </div>
   );
 }

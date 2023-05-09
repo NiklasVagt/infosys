@@ -1,7 +1,6 @@
-import { useState } from 'react';
+import { MouseEvent, useState } from 'react';
 import styles from './login-form.module.scss';
 import { useLogin } from '../../api/use-login';
-import { useVerify } from '../../api/use-verify';
 import classNames from 'classnames';
 import { Icon } from '@iconify/react';
 
@@ -14,12 +13,17 @@ export function LoginForm(props: LoginFormProps) {
   const [showPassword, setShowPassword] = useState(false);
 
   const [loginError, login] = useLogin();
-  const [user, verifyError, verify] = useVerify();
+
+  const handleSubmit = (e: MouseEvent) => {
+    e.preventDefault();
+    login({ username, password });
+  };
 
   return (
     <form className={styles['container']}>
       {/* username */}
       <div className="form-field">
+        <Icon icon="carbon:user" className="prefix"></Icon>
         <input
           id="username"
           type="text"
@@ -31,6 +35,7 @@ export function LoginForm(props: LoginFormProps) {
 
       {/* password */}
       <div className="form-field form-field-group">
+        <Icon icon="carbon:password" className="prefix"></Icon>
         <input
           id="password"
           type={showPassword ? 'text' : 'password'}
@@ -38,7 +43,11 @@ export function LoginForm(props: LoginFormProps) {
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="button" onClick={() => setShowPassword(!showPassword)}>
+        <button
+          type="button"
+          title={showPassword ? 'hide password' : 'reveal password'}
+          onClick={() => setShowPassword(!showPassword)}
+        >
           <Icon icon={showPassword ? 'carbon:view-off' : 'carbon:view'}></Icon>
         </button>
       </div>
@@ -51,29 +60,15 @@ export function LoginForm(props: LoginFormProps) {
         </div>
       )}
 
-      {/* token error */}
-      {verifyError && (
-        <div className={classNames('error icon', styles['error'])}>
-          <Icon icon="carbon:warning"></Icon>
-          {verifyError}
-        </div>
-      )}
-
       {/* login */}
       <button
-        type="button"
-        className="secondary fill"
-        onClick={() => login({ username, password })}
+        type="submit"
+        className="secondary fill inline-icon"
+        onClick={handleSubmit}
       >
-        Login
+        <Icon icon="carbon:login"></Icon>
+        <span>Login</span>
       </button>
-
-      {/* verify */}
-      <button type="button" className="secondary ghost" onClick={verify}>
-        Verify token
-      </button>
-
-      <pre>{JSON.stringify(user, null, 2)}</pre>
     </form>
   );
 }

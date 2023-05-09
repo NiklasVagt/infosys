@@ -1,6 +1,7 @@
-@use './colors';
+@use './variables';
 @use './button';
 @use './input';
+@use './typography';
 
 html,
 body {
@@ -18,4 +19,11 @@ body {
     align-items: center;
     gap: 0.5rem;
   }
+}
+
+.card {
+  background-color: hsl(var(--info-primary), 0.05);
+  border-radius: var(--info-border-card);
+  padding: 2rem;
+  box-shadow: var(--info-shadow-md);
 }

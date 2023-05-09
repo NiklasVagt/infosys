@@ -4,6 +4,10 @@
   gap: 1rem;
 
   max-width: 12rem;
+
+  button[type='submit'] {
+    margin-top: 1rem;
+  }
 }
 
 .error {
