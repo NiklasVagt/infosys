@@ -4,12 +4,13 @@ $bg: 230, 30%, 10%;
 $bg-text: 230, 30%, 90%;
 
 $primary: 230, 90%, 75%;
-$primary-text: 230, 90%, 20%;
+$primary-text: 230, 90%, 40%;
 
 $secondary: 180, 75%, 50%;
 $secondary-text: 180, 10%, 10%;
 
 $error: 0, 60%, 55%;
+$error-text: 0, 60%, 95%;
 
 $shadow-bg: hsla(nth($primary, 1), nth($primary, 2), nth($primary, 3), 0.3);
 $shadow: color.scale($shadow-bg, $lightness: -95%, $saturation: -10%);
@@ -29,6 +30,7 @@ $shadow: color.scale($shadow-bg, $lightness: -95%, $saturation: -10%);
   --info-secondary-text: #{$secondary-text};
 
   --info-error: #{$error};
+  --info-error-text: #{$error-text};
 
   // Spacing
   --info-border-card: 0.25rem;

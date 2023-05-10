@@ -3,6 +3,7 @@ import styles from './login-form.module.scss';
 import { useLogin } from '../../api/use-login';
 import classNames from 'classnames';
 import { Icon } from '@iconify/react';
+import { useNavigate } from 'react-router-dom';
 
 /* eslint-disable-next-line */
 export interface LoginFormProps {}
@@ -12,11 +13,20 @@ export function LoginForm(props: LoginFormProps) {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
+  const navigate = useNavigate();
   const [loginError, login] = useLogin();
 
-  const handleSubmit = (e: MouseEvent) => {
+  const handleSubmit = async (e: MouseEvent) => {
     e.preventDefault();
-    login({ username, password });
+
+    try {
+      const user = await login({ username, password });
+      if (!user) return;
+
+      navigate('/users');
+    } catch (err) {
+      // ignore error
+    }
   };
 
   return (
@@ -54,7 +64,7 @@ export function LoginForm(props: LoginFormProps) {
 
       {/* login error */}
       {loginError && (
-        <div className={classNames('error icon', styles['error'])}>
+        <div className={classNames('error-message icon', styles['error'])}>
           <Icon icon="carbon:warning"></Icon>
           {loginError}
         </div>

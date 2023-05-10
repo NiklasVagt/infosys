@@ -1,4 +1,8 @@
+a,
 button {
+  --color-bg: var(--info-bg-text);
+  --color-text: var(--info-bg);
+
   background-color: hsl(var(--info-bg));
   opacity: 0.8;
   color: hsl(var(--info-bg-text));
@@ -8,6 +12,7 @@ button {
   outline: none;
   border: none;
   border-radius: var(--info-border-card);
+  text-decoration: none;
 
   transition: 400ms cubic-bezier(0.19, 1, 0.22, 1) all;
 
@@ -28,6 +33,11 @@ button {
   &.secondary {
     --color-bg: var(--info-secondary);
     --color-text: var(--info-secondary-text);
+  }
+
+  &.error {
+    --color-bg: var(--info-error);
+    --color-text: var(--info-error-text);
   }
 
   &.fill.fill.fill {
