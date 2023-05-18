@@ -5,6 +5,6 @@ export const errorSchema = z.object({
 });
 
 export const isErrorDto = (data: unknown): data is ErrorDto =>
-  !errorSchema.safeParse(data);
+  errorSchema.safeParse(data).success;
 
 export type ErrorDto = z.infer<typeof errorSchema>;
