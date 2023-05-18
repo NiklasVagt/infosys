@@ -11,7 +11,7 @@ export const readEventList =
     return res.json(eventList);
   };
 
-/** Get a single event by its ID. */
+/** Single event by ID. */
 export const readEvent =
   (events: EventsRepository): RequestHandler<{ id: string }> =>
   async (req, res) => {

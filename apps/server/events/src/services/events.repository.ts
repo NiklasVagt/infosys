@@ -25,14 +25,14 @@ export class EventsRepository {
     return count > 0;
   }
 
-  /** Get a single event by ID. */
+  /** A single event by ID. */
   getEvent(id: InfosysEvent['id']): Promise<InfosysEvent | null> {
     return this.events
       .findUniqueOrThrow({ where: { id } })
       .catch(handlePrismaError(id));
   }
 
-  /** Get the list of all events. */
+  /** List of all events. */
   getEvents(): Promise<InfosysEvent[]> {
     return this.events.findMany().catch(handlePrismaError());
   }
@@ -52,7 +52,7 @@ export class EventsRepository {
       .catch(handlePrismaError(id));
   }
 
-  /** Delete an event from the database. */
+  /** Remove an event from the database. */
   async deleteEvent(id: InfosysEvent['id']): Promise<InfosysEvent[]> {
     await this.events.delete({ where: { id } }).catch(handlePrismaError(id));
     return this.getEvents();

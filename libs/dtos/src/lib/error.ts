@@ -1,5 +1,10 @@
-export interface ErrorDto {
-  message: string;
-}
+import { z } from 'zod';
 
-export const isErrorDto = (data: any): data is ErrorDto => !!data.message;
+export const errorSchema = z.object({
+  message: z.string(),
+});
+
+export const isErrorDto = (data: unknown): data is ErrorDto =>
+  !errorSchema.safeParse(data);
+
+export type ErrorDto = z.infer<typeof errorSchema>;

@@ -1,4 +1,11 @@
-export class StatusError extends Error {
+import { ErrorDto } from '@infosys/dtos';
+
+/**
+ * @typedef {object} Error
+ * @property {string} message.required - Error message
+ */
+
+export class StatusError extends Error implements ErrorDto {
   constructor(message: string, public code: number) {
     super(message);
   }

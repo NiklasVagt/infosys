@@ -2,8 +2,11 @@ import express, { json, urlencoded } from 'express';
 import { join } from 'path';
 import { router as eventsRouter } from './routes/events.routes';
 import morgan from 'morgan';
+import { swaggerConfig } from './constants/swagger.config';
+import { SwaggerService } from '@infosys/node-common';
 
 const app = express();
+new SwaggerService(app, swaggerConfig).setupRedirect();
 
 // Statically host everything under /assets
 app.use('/assets', express.static(join(__dirname, 'assets')));

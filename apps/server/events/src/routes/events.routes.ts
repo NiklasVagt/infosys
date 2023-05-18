@@ -14,17 +14,67 @@ export const router = Router();
 
 router
   .route('/')
-  /** GET list of events */
+
+  /**
+   * GET /api/events
+   * @summary Get the list of all events.
+   * @tags events
+   * @return {Array.<InfosysEvent>} 200 - Event object
+   */
   .get(readEventList(eventsRepo))
-  /** CREATE a new event and add it to the list of events. */
+
+  /**
+   * POST /api/events
+   * @summary Create a new event.
+   * @tags events
+   * @param {CreateInfosysEvent} request.body.required - Event object
+   * @return {InfosysEvent} 200 - Event object
+   * @return {Error} 403 - Forbidden
+   * @return {Error} 405 - Invalid input
+   * @security JWT
+   */
   .post(auth(), createEvent(eventsRepo));
 
 router
   .route('/:id')
-  /** GET a single event by id. */
+
+  /**
+   * GET /api/events/{id}
+   * @summary Get a single event by its ID.
+   * @tags events
+   * @param {string} id.path - Event ID
+   * @return {InfosysEvent} 200 - Event object
+   * @return {Error} 400 - Invalid ID supplied
+   * @return {Error} 404 - Event not found
+   */
   .get(readEvent(eventsRepo))
+
   .all(auth())
-  /** PATCH a single event by id. */
+
+  /**
+   * PATCH /api/events/{id}
+   * @summary Update a single event by its ID.
+   * @tags events
+   * @param {string} id.path - Event ID
+   * @param {UpdateInfosysEvent} request.body.required - Event object
+   * @return {InfosysEvent} 200 - Event object
+   * @return {Error} 400 - Invalid ID supplied
+   * @return {Error} 403 - Forbidden
+   * @return {Error} 404 - Event not found
+   * @return {Error} 405 - Invalid input
+   * @security JWT
+   */
   .patch(updateEvent(eventsRepo))
-  /** DELETE a single event by id. */
+
+  /**
+   * DELETE /api/events/{id}
+   * @summary Delete a single event by its ID.
+   * @tags events
+   * @param {string} id.path - Event ID
+   * @return {Array<InfosysEvent>} 200 - Event object
+   * @return {Error} 400 - Invalid ID supplied
+   * @return {Error} 403 - Forbidden
+   * @return {Error} 404 - Event not found
+   * @security JWT
+   */
   .delete(deleteEvent(eventsRepo));
