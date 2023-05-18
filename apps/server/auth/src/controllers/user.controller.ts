@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 import { UserRepository, userRepo } from '../services/user.repository';
 import { BadRequestError, handleHttpError } from '@infosys/node-common';
-import { ErrorDto, UserDto } from '@infosys/dtos';
+import { ErrorDto, UserDto, loginSchema } from '@infosys/dtos';
 
 export class UserController<ItemParams extends Record<'id', string>> {
   constructor(private users: UserRepository) {}
@@ -21,8 +21,7 @@ export class UserController<ItemParams extends Record<'id', string>> {
   createUser(): RequestHandler<null, UserDto | ErrorDto> {
     return async (req, res) => {
       try {
-        const userDto = req.body;
-        // TODO: Check DTO
+        const userDto = loginSchema.parse(req.body);
 
         const user = await this.users.createUser(userDto);
 

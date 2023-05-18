@@ -27,14 +27,14 @@
       "executor": "@nrwl/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "server-events:build"
+        "buildTarget": "events:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "server-events:build:development"
+          "buildTarget": "events:build:development"
         },
         "production": {
-          "buildTarget": "server-events:build:production"
+          "buildTarget": "events:build:production"
         }
       }
     },
@@ -88,5 +88,6 @@
       }
     }
   },
-  "tags": []
+  "tags": [],
+  "implicitDependencies": ["auth", "events"]
 }
