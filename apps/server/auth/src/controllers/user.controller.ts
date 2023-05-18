@@ -1,7 +1,9 @@
 import { RequestHandler } from 'express';
 import { UserRepository, userRepo } from '../services/user.repository';
-import { BadRequestError, handleHttpError } from '@infosys/node-common';
-import { ErrorDto, UserDto, loginSchema } from '@infosys/dtos';
+import { handleHttpError } from '@infosys/node-common';
+import { ErrorDto, UserDto } from '@infosys/dtos';
+import { createUserSchema, updateUserSchema } from '@infosys/dtos/auth';
+import { idSchema } from '@infosys/dtos/id';
 
 export class UserController<ItemParams extends Record<'id', string>> {
   constructor(private users: UserRepository) {}
@@ -21,8 +23,7 @@ export class UserController<ItemParams extends Record<'id', string>> {
   createUser(): RequestHandler<null, UserDto | ErrorDto> {
     return async (req, res) => {
       try {
-        const userDto = loginSchema.parse(req.body);
-
+        const userDto = createUserSchema.parse(req.body);
         const user = await this.users.createUser(userDto);
 
         return res.json(user);
@@ -36,9 +37,7 @@ export class UserController<ItemParams extends Record<'id', string>> {
   getUser(): RequestHandler<ItemParams, UserDto | ErrorDto> {
     return async (req, res) => {
       try {
-        const id = +req.params.id;
-        if (isNaN(id)) throw new BadRequestError();
-
+        const id = idSchema.parse(+req.params.id);
         const user = await this.users.getUser(id);
 
         return res.json(user);
@@ -52,11 +51,8 @@ export class UserController<ItemParams extends Record<'id', string>> {
   updateUser(): RequestHandler<ItemParams, UserDto | ErrorDto> {
     return async (req, res) => {
       try {
-        const id = +req.params.id;
-        if (isNaN(id)) throw new BadRequestError();
-
-        const userDto = req.body;
-        if (!req.body) throw new BadRequestError();
+        const id = idSchema.parse(+req.params.id);
+        const userDto = updateUserSchema.parse(req.body);
 
         const user = await this.users.updateUser(id, userDto);
         return res.json(user);
@@ -70,8 +66,7 @@ export class UserController<ItemParams extends Record<'id', string>> {
   deleteUser(): RequestHandler<ItemParams, UserDto[] | ErrorDto> {
     return async (req, res) => {
       try {
-        const id = +req.params.id;
-        if (isNaN(id)) throw new BadRequestError();
+        const id = idSchema.parse(+req.params.id);
 
         const users = await this.users.deleteUser(id);
         return res.json(users);

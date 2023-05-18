@@ -3,7 +3,6 @@ import { compare } from 'bcrypt';
 import {
   BEARER_PREFIX,
   ForbiddenError,
-  NotFoundError,
   UnauthorizedError,
 } from '@infosys/node-common';
 import { LoginDto, UserDto } from '@infosys/dtos';
@@ -13,7 +12,7 @@ import { UserRepository, userRepo } from './user.repository';
 const SECRET = process.env.SECRET ?? 'if-you-can-read-this-you-need-no-glasses';
 const EXPIRATION = '1h';
 
-class AuthService {
+export class AuthService {
   constructor(private users: UserRepository) {}
 
   /**
@@ -23,8 +22,8 @@ class AuthService {
    * 4. BE sends created token back to FE
    */
   public async createToken({ username, password }: LoginDto) {
-    const user = await this.users.getUserByUsername(username);
-    if (!user) throw new NotFoundError();
+    const user = await this.users.getUserByUsername(username).catch(() => null);
+    if (!user) throw new UnauthorizedError();
 
     const isValidPassword = await compare(password, user.password);
     if (!isValidPassword) throw new UnauthorizedError();

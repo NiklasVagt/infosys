@@ -31,7 +31,7 @@ router
    * @return {InfosysEvent} 200 - Event object
    * @return {Error} 403 - Forbidden
    * @return {Error} 405 - Invalid input
-   * @security JWT
+   * @security BearerAuth
    */
   .post(auth(), createEvent(eventsRepo));
 
@@ -62,7 +62,7 @@ router
    * @return {Error} 403 - Forbidden
    * @return {Error} 404 - Event not found
    * @return {Error} 405 - Invalid input
-   * @security JWT
+   * @security BearerAuth
    */
   .patch(updateEvent(eventsRepo))
 
@@ -75,6 +75,6 @@ router
    * @return {Error} 400 - Invalid ID supplied
    * @return {Error} 403 - Forbidden
    * @return {Error} 404 - Event not found
-   * @security JWT
+   * @security BearerAuth
    */
   .delete(deleteEvent(eventsRepo));

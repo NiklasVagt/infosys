@@ -3,8 +3,11 @@ import * as path from 'path';
 import { authRouter } from './routes/auth.router';
 import { userRouter } from './routes/user.router';
 import morgan from 'morgan';
+import { SwaggerService } from '@infosys/node-common';
+import { swaggerConfig } from './constants/swagger.config';
 
 const app = express();
+new SwaggerService(app, swaggerConfig).setupRedirect();
 
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use(json());

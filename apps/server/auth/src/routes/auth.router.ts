@@ -1,30 +1,31 @@
 import { Router } from 'express';
-import { authService } from '../services/auth.service';
-import { ErrorDto, LoginDto, TokenDto } from '@infosys/dtos';
-import { BadRequestError, RequestWithUser } from '@infosys/node-common';
 import { auth } from '../middlewares/auth.middleware';
+import { authController } from '../controllers/auth.controller';
 
 export const authRouter = () => {
   const router = Router();
 
-  router.post<LoginDto, TokenDto | ErrorDto>('/login', async (req, res) => {
-    try {
-      const dto = req.body;
+  /**
+   * POST /api/login
+   * @summary Login
+   * @tags auth
+   * @param {Login} request.body.required - Login info
+   * @return {Token} 200 - Success response
+   * @return {Error} 400 - Bad request response
+   * @return {Error} 401 - Unauthorized response
+   */
+  router.post('/login', authController.login());
 
-      if (!dto?.password || !dto?.username) throw new BadRequestError();
-
-      const token = await authService.createToken(dto);
-
-      return res.json({ token });
-    } catch (err) {
-      console.error(err);
-      return res.status(err.code ?? 500).json({ message: err.message });
-    }
-  });
-
-  router.get('/verify', auth(), (req: RequestWithUser, res) => {
-    res.json(req.user);
-  });
+  /**
+   * GET /api/verify
+   * @summary Verify token
+   * @tags auth
+   * @return {User} 200 - Success response
+   * @return {Error} 400 - Bad request response
+   * @return {Error} 403 - Forbidden response
+   * @security BearerAuth
+   */
+  router.get('/verify', auth(), authController.verifyToken());
 
   return router;
 };
