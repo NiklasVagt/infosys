@@ -1,14 +1,15 @@
-import express from 'express';
+import express, { json, urlencoded } from 'express';
 import * as path from 'path';
-import { json, urlencoded } from 'body-parser';
 import { authRouter } from './routes/auth.router';
 import { userRouter } from './routes/user.router';
+import morgan from 'morgan';
 
 const app = express();
 
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use(json());
 app.use(urlencoded());
+app.use(morgan('dev'));
 
 app.use('/api', authRouter());
 app.use('/api/users', userRouter());

@@ -1,7 +1,7 @@
-import express from 'express';
-import { json, urlencoded } from 'body-parser';
+import express, { json, urlencoded } from 'express';
 import { join } from 'path';
 import { router as eventsRouter } from './routes/events.routes';
+import morgan from 'morgan';
 
 const app = express();
 
@@ -11,6 +11,7 @@ app.use('/assets', express.static(join(__dirname, 'assets')));
 // Parse json bodies and attach to req object.
 app.use(json());
 app.use(urlencoded());
+app.use(morgan('dev'));
 
 // Setup /api/events
 app.use('/api/events', eventsRouter);
