@@ -25,7 +25,8 @@
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "admin:build",
-        "proxyConfig": "libs/client-common/proxy.conf.json"
+        "proxyConfig": "libs/client-common/proxy.conf.json",
+        "port": 4300
       },
       "configurations": {
         "development": {
@@ -69,5 +70,6 @@
       }
     }
   },
-  "tags": []
+  "tags": [],
+  "implicitDependencies": ["auth", "events"]
 }

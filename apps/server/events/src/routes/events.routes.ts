@@ -12,19 +12,18 @@ const eventsRepo = new EventsRepository(prisma);
 
 export const router = Router();
 
-router.use(auth());
-
 router
   .route('/')
   /** GET list of events */
   .get(readEventList(eventsRepo))
   /** CREATE a new event and add it to the list of events. */
-  .post(createEvent(eventsRepo));
+  .post(auth(), createEvent(eventsRepo));
 
 router
   .route('/:id')
   /** GET a single event by id. */
   .get(readEvent(eventsRepo))
+  .all(auth())
   /** PATCH a single event by id. */
   .patch(updateEvent(eventsRepo))
   /** DELETE a single event by id. */
