@@ -1,4 +1,5 @@
 import { InfosysEvent, PrismaClient } from '@infosys/events-prisma';
+import { handlePrismaError } from '@infosys/node-common';
 
 /**
  * Repository to interact with events database.
@@ -26,17 +27,19 @@ export class EventsRepository {
 
   /** Get a single event by ID. */
   getEvent(id: InfosysEvent['id']): Promise<InfosysEvent | null> {
-    return this.events.findUnique({ where: { id } });
+    return this.events
+      .findUniqueOrThrow({ where: { id } })
+      .catch(handlePrismaError(id));
   }
 
   /** Get the list of all events. */
   getEvents(): Promise<InfosysEvent[]> {
-    return this.events.findMany();
+    return this.events.findMany().catch(handlePrismaError());
   }
 
   /** Create a new event with unique ID and insirt into DB. */
   createEvent(eventDto: Omit<InfosysEvent, 'id'>): Promise<InfosysEvent> {
-    return this.events.create({ data: eventDto });
+    return this.events.create({ data: eventDto }).catch(handlePrismaError());
   }
 
   /** Partially update an event by ID. */
@@ -44,12 +47,14 @@ export class EventsRepository {
     id: InfosysEvent['id'],
     eventDto: Partial<InfosysEvent>
   ): Promise<InfosysEvent> {
-    return this.events.update({ where: { id }, data: eventDto });
+    return this.events
+      .update({ where: { id }, data: eventDto })
+      .catch(handlePrismaError(id));
   }
 
   /** Delete an event from the database. */
   async deleteEvent(id: InfosysEvent['id']): Promise<InfosysEvent[]> {
-    await this.events.delete({ where: { id } });
+    await this.events.delete({ where: { id } }).catch(handlePrismaError(id));
     return this.getEvents();
   }
 }

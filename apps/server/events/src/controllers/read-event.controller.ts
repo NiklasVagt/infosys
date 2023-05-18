@@ -1,5 +1,7 @@
 import { RequestHandler } from 'express';
 import { EventsRepository } from '../services/events.repository';
+import { idSchema } from '@infosys/dtos/id';
+import { handleHttpError } from '@infosys/node-common';
 
 /** Get the list of all events. */
 export const readEventList =
@@ -13,27 +15,16 @@ export const readEventList =
 export const readEvent =
   (events: EventsRepository): RequestHandler<{ id: string }> =>
   async (req, res) => {
-    const id = +req.params.id;
+    try {
+      const id = idSchema.parse(+req.params.id);
 
-    // Check id path param is valid
-    if (isNaN(id)) {
-      const message = `Id ${id} is not a number.`;
-      console.info(message);
+      // Get event from db via repository
+      const event = await events.getEvent(id);
 
-      return res.status(400).json({ message });
+      // Return found event
+      return res.json(event);
+    } catch (err) {
+      const { code, body } = handleHttpError(err);
+      return res.status(code).json(body);
     }
-
-    // Get event from db via repository
-    const event = await events.getEvent(id);
-
-    // Check event with id exists in db
-    if (!event) {
-      const message = `No event with id ${id} found.`;
-      console.info(message);
-
-      return res.status(404).json({ message });
-    }
-
-    // Return found event
-    return res.json(event);
   };

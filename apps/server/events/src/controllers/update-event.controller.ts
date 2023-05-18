@@ -1,30 +1,24 @@
 import { RequestHandler } from 'express';
 import { EventsRepository } from '../services/events.repository';
-import { BadRequestError } from '@infosys/node-common';
+import { updateEventSchema } from '@infosys/dtos/event';
+import { handleHttpError } from '@infosys/node-common';
+import { idSchema } from '@infosys/dtos/id';
 
 /** Update a single event by its ID. */
 export const updateEvent =
   (events: EventsRepository): RequestHandler<{ id: string }> =>
   async (req, res) => {
     try {
-      const id = +req.params.id;
-      // Check id path param is valid
-      if (isNaN(id)) {
-        const message = `Id ${id} is not a number.`;
-        console.info(message);
-
-        return res.status(400).json({ message });
-      }
-
+      const id = idSchema.parse(+req.params.id);
       // Check has body
-      if (!req.body) throw new BadRequestError();
+      const eventDto = updateEventSchema.parse(req.body);
 
       // Get event from db via repository
-      const event = await events.updateEvent(id, req.body);
+      const event = await events.updateEvent(id, eventDto);
       // Return found event
       return res.json(event);
     } catch (err) {
-      console.error(err);
-      return res.status(err.code ?? 500).json({ message: err.message });
+      const { code, body } = handleHttpError(err);
+      return res.status(code).json(body);
     }
   };
