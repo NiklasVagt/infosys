@@ -7,7 +7,8 @@ export function App() {
     <div className={styles['shell']}>
       <h1>Infosytem ETI</h1>
 
-      <Sidebar style={{ gridArea: 'sidebar' }} className={styles['sidebar']} />
+      <Sidebar className={styles['sidebar']} />
+      <div className={styles['sidebar-spacer']}></div>
 
       <Outlet></Outlet>
     </div>

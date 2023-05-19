@@ -21,12 +21,15 @@ export function Sidebar({ className, style }: SidebarProps) {
       </Link>
 
       {/* QR Code */}
-      <QRCodeSVG
-        className={styles['qr-code']}
-        value={new URL(location.pathname, window.location.origin).href}
-        bgColor="transparent"
-        fgColor="hsl(var(--info-bg-text))"
-      ></QRCodeSVG>
+      <div className={styles['qr-container']}>
+        <QRCodeSVG
+          className={styles['qr-code']}
+          value={new URL(location.pathname, window.location.origin).href}
+          bgColor="transparent"
+          fgColor="hsl(var(--info-bg-text))"
+        ></QRCodeSVG>
+        <small>Get it on your phone</small>
+      </div>
     </div>
   );
 }
