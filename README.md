@@ -6,16 +6,30 @@
 
 ## Development server
 
-Run `nx serve terminal` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+Run `yarn start` to launch all the apps and the api. The apps will automatically reload if you change any of the source files.
 
-## Understand this workspace
+## Apps
 
-Run `nx graph` to see a diagram of the dependencies of the projects.
+- [terminal](http://localhost:4200)
+- [admin](http://localhost:4300)
+- [auth](http://localhost:3334/api)
+- [events](http://localhost:3333/api)
 
-## Remote caching
+![logical architecture](./docs/logical-view.png)
+![component architecture](./docs/component-view.png)
 
-Run `npx nx connect-to-nx-cloud` to enable [remote caching](https://nx.app) and make CI faster.
+### Terminal
 
-## Further help
+This is the main app. It is the one that the user will interact with and is used to display various information.
 
-Visit the [Nx Documentation](https://nx.dev) to learn more.
+### Admin
+
+This is the admin app. It is used to manage the events and the users.
+
+### Auth
+
+This is the authentication api. It is used to authenticate and manage the users.
+
+### Events
+
+This is the events api. It is used to manage the events.
