@@ -1,6 +1,7 @@
 import { ErrorDto, EventDto, UpdateEventDto } from '@infosys/dtos';
 import axios, { AxiosError } from 'axios';
 import { useState } from 'react';
+import { tokenStore } from '../../common/store/user.store';
 
 export function useUpdateEvent() {
   const [event, setEvent] = useState<EventDto | null>(null);
@@ -11,7 +12,7 @@ export function useUpdateEvent() {
 
     try {
       const res = await axios.patch<EventDto>(`/api/events/${id}`, eventDto, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        headers: { Authorization: `Bearer ${tokenStore.token}` },
       });
       setEvent(res.data);
 

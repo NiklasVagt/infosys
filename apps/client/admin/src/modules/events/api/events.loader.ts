@@ -1,12 +1,13 @@
 import { EventDto } from '@infosys/dtos';
 import axios from 'axios';
 import { LoaderFunction, redirect } from 'react-router-dom';
+import { tokenStore } from '../../common/store/user.store';
 
 export const eventListLoader: LoaderFunction = () =>
   axios
     .get<EventDto[]>('/api/events', {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${tokenStore.token}`,
       },
     })
     .then((response) =>
@@ -21,7 +22,7 @@ export const eventItemLoader: LoaderFunction = ({ params }) =>
   axios
     .get<EventDto>(`/api/events/${params.id}`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${tokenStore.token}`,
       },
     })
     .then((response) => ({

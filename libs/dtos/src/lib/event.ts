@@ -10,7 +10,9 @@ import { z } from 'zod';
  */
 export const eventSchema = z.object({
   id: z.number(),
-  name: z.string(),
+  name: z
+    .string()
+    .min(3, { message: 'Event name must be at least 3 characters long.' }),
   description: z.string(),
   author: z.string(),
   date: z.coerce

@@ -3,7 +3,7 @@ import styles from './navbar.module.scss';
 import { useLocation } from 'react-router-dom';
 import { Suspense } from 'react';
 import { useSnapshot } from 'valtio';
-import { userState } from '../../store/user.store';
+import { tokenStore, userState } from '../../store/user.store';
 import { Icon } from '@iconify/react';
 import { commonState } from '../../store/common.store';
 
@@ -43,7 +43,16 @@ export function Navbar({ className, ...props }: NavbarProps) {
           />
         }
       >
-        <User className={styles['avatar']}></User>
+        <div className={styles['avatar']}>
+          <User></User>
+
+          <button
+            className="secondary ghost round inline-icon"
+            onClick={() => (tokenStore.token = null)}
+          >
+            <Icon icon="carbon:logout" />
+          </button>
+        </div>
       </Suspense>
     </div>
   );

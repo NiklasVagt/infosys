@@ -3,6 +3,7 @@ import { ErrorDto, TokenDto } from '@infosys/dtos';
 import axios, { AxiosError } from 'axios';
 import { useState } from 'react';
 import { useVerify } from './use-verify';
+import { tokenStore } from '../../common/store/user.store';
 
 export function useLogin() {
   const [error, setError] = useState<null | string>();
@@ -13,14 +14,15 @@ export function useLogin() {
 
     try {
       const res = await axios.post<TokenDto>('/api/login', credentials);
-      localStorage.setItem('token', res.data.token);
+
+      tokenStore.token = res.data.token;
 
       return await verify();
     } catch (err) {
       const error = err as AxiosError<ErrorDto>;
       const message = error.response?.data?.message ?? error.message;
 
-      localStorage.removeItem('token');
+      tokenStore.token = null;
 
       setError(message);
     }

@@ -1,4 +1,4 @@
-import { RouteObject } from 'react-router-dom';
+import { RouteObject, createBrowserRouter } from 'react-router-dom';
 import UserListPage from '../modules/users/pages/user-list-page';
 import LoginPage from '../modules/login/pages/login-page';
 import UserItemPage from '../modules/users/pages/user-item-page';
@@ -15,6 +15,7 @@ import {
   eventItemLoader,
   eventListLoader,
 } from '../modules/events/api/events.loader';
+import ErrorState from '../modules/common/components/error-state/error-state';
 
 export const routes: RouteObject[] = [
   {
@@ -24,6 +25,7 @@ export const routes: RouteObject[] = [
   {
     path: '/',
     element: <App></App>,
+    errorElement: <ErrorState />,
     children: [
       {
         path: '/users',
@@ -70,3 +72,5 @@ export const routes: RouteObject[] = [
     ],
   },
 ];
+
+export const router = createBrowserRouter(routes);

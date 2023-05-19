@@ -1,10 +1,8 @@
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
 
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { routes } from './app/app.routes';
-
-const router = createBrowserRouter(routes);
+import { RouterProvider } from 'react-router-dom';
+import { router } from './app/app.routes';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

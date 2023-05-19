@@ -29,7 +29,7 @@ export function UsersList({ className, ...props }: UsersListProps) {
               to={`/users/create`}
               className="secondary outline inline-icon"
             >
-              <Icon icon="carbon:add"></Icon>
+              <Icon icon="carbon:user-follow"></Icon>
               Add user
             </NavLink>
           </li>

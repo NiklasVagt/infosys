@@ -1,14 +1,17 @@
 import { UserDto } from '@infosys/dtos';
 import axios from 'axios';
-import { redirect } from 'react-router-dom';
-import { proxy, subscribe } from 'valtio';
-import { derive } from 'valtio/utils';
+import { proxy } from 'valtio';
+import { derive, subscribeKey } from 'valtio/utils';
+import { router } from '../../../app/app.routes';
+import { createSearchParams } from 'react-router-dom';
 
 interface TokenStore {
   token: string | null;
 }
 
-const tokenStore = proxy<TokenStore>({ token: localStorage.getItem('token') });
+export const tokenStore = proxy<TokenStore>({
+  token: localStorage.getItem('token'),
+});
 
 export const userState = derive({
   token: (get) => get(tokenStore).token,
@@ -22,16 +25,24 @@ export const userState = derive({
           })
           .then((res) => res.data)
           .catch((err) => {
-            throw err.response.status === 403 ? redirect('/login') : err;
+            console.error(err);
+            return null;
           })
       : null;
   },
 });
 
-subscribe(userState, () => {
-  if (userState.token) {
-    localStorage.setItem('token', userState.token);
+subscribeKey(userState, 'token', (value) => {
+  if (value) {
+    localStorage.setItem('token', value);
+
+    const path =
+      new URLSearchParams(window.location.search).get('dest') ?? '/users';
+    router.navigate(path);
   } else {
     localStorage.removeItem('token');
+
+    const search = createSearchParams({ dest: window.location.pathname });
+    router.navigate({ pathname: '/login', search: search.toString() });
   }
 });

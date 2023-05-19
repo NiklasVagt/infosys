@@ -1,6 +1,7 @@
 import { CreateEventDto, ErrorDto, EventDto } from '@infosys/dtos';
 import axios, { AxiosError } from 'axios';
 import { useState } from 'react';
+import { tokenStore } from '../../common/store/user.store';
 
 export function useCreateEvent() {
   const [event, setEvent] = useState<EventDto | null>(null);
@@ -11,7 +12,7 @@ export function useCreateEvent() {
 
     try {
       const res = await axios.post<EventDto>('/api/events', eventDto, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        headers: { Authorization: `Bearer ${tokenStore.token}` },
       });
       setEvent(res.data);
 

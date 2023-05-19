@@ -2,6 +2,7 @@ import { ErrorDto, UserDto } from '@infosys/dtos';
 import { Prisma, User } from '@infosys/auth-prisma';
 import axios, { AxiosError } from 'axios';
 import { useState } from 'react';
+import { tokenStore } from '../../common/store/user.store';
 
 export function useUpdateUser() {
   const [user, setUser] = useState<UserDto | null>(null);
@@ -12,7 +13,7 @@ export function useUpdateUser() {
 
     try {
       const res = await axios.patch<UserDto>(`/api/users/${id}`, userDto, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        headers: { Authorization: `Bearer ${tokenStore.token}` },
       });
       setUser(res.data);
 

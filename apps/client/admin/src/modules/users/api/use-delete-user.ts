@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { User } from '@infosys/auth-prisma';
 import axios, { AxiosError } from 'axios';
 import { ErrorDto, UserDto } from '@infosys/dtos';
+import { tokenStore } from '../../common/store/user.store';
 
 export function useDeleteUser() {
   const [users, setUsers] = useState<UserDto[] | null>(null);
@@ -12,7 +13,7 @@ export function useDeleteUser() {
 
     try {
       const res = await axios.delete<UserDto[]>(`/api/users/${id}`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        headers: { Authorization: `Bearer ${tokenStore.token}` },
       });
       setUsers(res.data);
 

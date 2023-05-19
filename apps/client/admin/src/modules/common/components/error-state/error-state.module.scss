@@ -1,0 +1,26 @@
+.page-container {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  display: grid;
+  gap: 1rem;
+  padding: 4rem;
+  border-radius: var(--info-border-card);
+  background-color: hsla(var(--info-bg-text), 0.05);
+  color: hsl(var(--info-error));
+  z-index: 20;
+
+  h1 {
+    margin-bottom: 2rem;
+  }
+}
+
+.icon {
+  place-self: center;
+  font-size: 10rem;
+  color: hsl(var(--info-error));
+}

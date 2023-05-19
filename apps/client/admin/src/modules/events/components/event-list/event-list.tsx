@@ -30,7 +30,7 @@ export function EventList({ className, ...props }: EventListProps) {
               to={`/events/create`}
               className="secondary outline inline-icon"
             >
-              <Icon icon="carbon:add"></Icon>
+              <Icon icon="carbon:calendar-add"></Icon>
               Add event
             </NavLink>
           </li>

@@ -1,12 +1,11 @@
 import { useMemo, useState } from 'react';
-import styles from './event-details.module.scss';
 import { useNavigate, useRevalidator } from 'react-router-dom';
 import { useUpsertEvent } from '../../api/use-upsert-event';
 import { useDeleteEvent } from '../../api/use-delete-event';
-import classNames from 'classnames';
 import { Icon } from '@iconify/react';
 import { EventDto } from '@infosys/dtos';
 import FormField from '../../../common/components/form-field/form-field';
+import Form from '../../../common/components/form/form';
 
 /* eslint-disable-next-line */
 export interface EventDetailsProps extends EventDto {}
@@ -52,10 +51,24 @@ export function EventDetails({ id, ...props }: EventDetailsProps) {
   };
 
   return (
-    <form className={classNames('form')}>
+    <Form
+      {...{
+        handleSave,
+        handleDelete,
+        error,
+        saveBtn: true,
+        deleteBtn: !isNewEvent,
+      }}
+    >
       {/* id */}
       {!isNewEvent && (
-        <FormField id="user-id" type="text" disabled value={id}>
+        <FormField
+          id="user-id"
+          type="text"
+          disabled
+          value={id}
+          prefix={<Icon icon="carbon:id" />}
+        >
           ID
         </FormField>
       )}
@@ -65,6 +78,7 @@ export function EventDetails({ id, ...props }: EventDetailsProps) {
         id="name"
         value={name}
         onChange={(e) => setName(e.target.value)}
+        prefix={<Icon icon="carbon:event" />}
       >
         Name
       </FormField>
@@ -74,6 +88,7 @@ export function EventDetails({ id, ...props }: EventDetailsProps) {
         id="description"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
+        prefix={<Icon icon="carbon:text-font" />}
       >
         Description
       </FormField>
@@ -83,6 +98,7 @@ export function EventDetails({ id, ...props }: EventDetailsProps) {
         id="author"
         value={author}
         onChange={(e) => setAuthor(e.target.value)}
+        prefix={<Icon icon="carbon:user" />}
       >
         Author
       </FormField>
@@ -93,46 +109,11 @@ export function EventDetails({ id, ...props }: EventDetailsProps) {
         type="datetime-local"
         value={date.toISOString().slice(0, 16)}
         onChange={(e) => setDate(new Date(e.target.value))}
+        prefix={<Icon icon="carbon:calendar" />}
       >
         Date
       </FormField>
-
-      {/* error */}
-      {error && (
-        <div className={classNames('error-message', styles['error'])}>
-          {error}
-        </div>
-      )}
-
-      {/* actions */}
-      <ul className={classNames('actions')}>
-        {/* save */}
-        <li>
-          <button
-            type="submit"
-            className="secondary ghost inline-icon"
-            onClick={handleSave}
-          >
-            <Icon icon="carbon:save"></Icon>
-            <span>Save</span>
-          </button>
-        </li>
-
-        {/* delete */}
-        {!isNewEvent && (
-          <li>
-            <button
-              type="button"
-              className="error ghost inline-icon"
-              onClick={handleDelete}
-            >
-              <Icon icon="carbon:delete"></Icon>
-              <span>Delete</span>
-            </button>
-          </li>
-        )}
-      </ul>
-    </form>
+    </Form>
   );
 }
 

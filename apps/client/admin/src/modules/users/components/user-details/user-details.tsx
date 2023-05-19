@@ -1,13 +1,12 @@
 import { UserDto } from '@infosys/dtos';
-import styles from './user-details.module.scss';
 import { useMemo, useState } from 'react';
-import { Icon } from '@iconify/react';
 import { useUpsertUser } from '../../api/use-upsert-user';
 import { useDeleteUser } from '../../api/use-delete-user';
-import classNames from 'classnames';
 import { useNavigate, useRevalidator } from 'react-router-dom';
 import { Prisma } from '@infosys/auth-prisma';
 import FormField from '../../../common/components/form-field/form-field';
+import Form from '../../../common/components/form/form';
+import { Icon } from '@iconify/react';
 
 /* eslint-disable-next-line */
 export interface UserDetailsProps extends UserDto {}
@@ -54,10 +53,24 @@ export function UserDetails({ id, ...props }: UserDetailsProps) {
   };
 
   return (
-    <form className={classNames('form')}>
+    <Form
+      {...{
+        handleSave,
+        handleDelete,
+        error,
+        saveBtn: true,
+        deleteBtn: !isNewUser,
+      }}
+    >
       {/* id */}
       {!isNewUser && (
-        <FormField id="user-id" type="text" disabled value={id}>
+        <FormField
+          id="user-id"
+          type="text"
+          disabled
+          value={id}
+          prefix={<Icon icon="carbon:id" />}
+        >
           ID
         </FormField>
       )}
@@ -68,18 +81,19 @@ export function UserDetails({ id, ...props }: UserDetailsProps) {
         type="text"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
+        prefix={<Icon icon="carbon:user" />}
       >
         Username
       </FormField>
 
       {/* password */}
-
       <FormField
         id="password"
         type="password"
         value={password}
         placeholder="***"
         onChange={(e) => setPassword(e.target.value)}
+        prefix={<Icon icon="carbon:password" />}
       >
         New password
       </FormField>
@@ -91,46 +105,11 @@ export function UserDetails({ id, ...props }: UserDetailsProps) {
         value={passwordRepeat}
         placeholder="***"
         onChange={(e) => setPasswordRepeat(e.target.value)}
+        prefix={<Icon icon="carbon:repeat" />}
       >
         Repeat password
       </FormField>
-
-      {/* error */}
-      {error && (
-        <div className={classNames('error-message', styles['error'])}>
-          {error}
-        </div>
-      )}
-
-      {/* actions */}
-      <ul className={classNames('actions')}>
-        {/* save */}
-        <li>
-          <button
-            type="submit"
-            className="secondary ghost inline-icon"
-            onClick={handleSave}
-          >
-            <Icon icon="carbon:save"></Icon>
-            <span>Save</span>
-          </button>
-        </li>
-
-        {/* delete */}
-        {!isNewUser && (
-          <li>
-            <button
-              type="button"
-              className="error ghost inline-icon"
-              onClick={handleDelete}
-            >
-              <Icon icon="carbon:delete"></Icon>
-              <span>Delete</span>
-            </button>
-          </li>
-        )}
-      </ul>
-    </form>
+    </Form>
   );
 }
 

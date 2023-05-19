@@ -1,5 +1,8 @@
 .container {
-  padding: 1rem;
+  $padding: 1rem;
+
+  padding: $padding;
+  min-height: calc(100vh - 2 * $padding - var(--navbar-height));
 }
 
 .list {
@@ -12,4 +15,10 @@
   a {
     width: 100%;
   }
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }

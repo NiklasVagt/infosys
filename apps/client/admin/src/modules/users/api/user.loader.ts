@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { LoaderFunction, redirect } from 'react-router-dom';
+import { tokenStore } from '../../common/store/user.store';
 
 export const userListLoader: LoaderFunction = () =>
   axios
     .get('/api/users', {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${tokenStore.token}`,
       },
     })
     .then((response) => response.data)
@@ -18,7 +19,7 @@ export const userItemLoader: LoaderFunction = ({ params }) =>
   axios
     .get(`/api/users/${params.id}`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${tokenStore.token}`,
       },
     })
     .then((response) => response.data)

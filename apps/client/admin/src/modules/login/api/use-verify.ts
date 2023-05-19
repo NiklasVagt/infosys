@@ -1,13 +1,14 @@
 import { ErrorDto, UserDto } from '@infosys/dtos';
 import axios, { AxiosError } from 'axios';
 import { useState } from 'react';
+import { tokenStore } from '../../common/store/user.store';
 
 export function useVerify() {
   const [user, setUser] = useState<UserDto | null>(null);
   const [error, setError] = useState<string | null>();
 
   const execute = async () => {
-    const token = `Bearer ${localStorage.getItem('token')}`;
+    const token = `Bearer ${tokenStore.token}`;
 
     setUser(null);
     setError(null);

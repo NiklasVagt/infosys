@@ -4,7 +4,7 @@ input {
   border: none;
   border-radius: var(--info-border-card);
   padding: 0.5rem;
-  font-size: 0.75rem;
+  font-size: inherit;
   outline: none;
 
   &:focus {
@@ -21,6 +21,7 @@ input {
 .form-field {
   display: flex;
   align-items: center;
+  font-size: 0.75rem;
 
   input {
     width: 100%;
