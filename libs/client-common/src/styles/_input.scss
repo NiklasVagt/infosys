@@ -1,3 +1,4 @@
+textarea,
 input {
   background-color: hsla(var(--info-bg-text), 0.1);
   color: white;
@@ -5,6 +6,7 @@ input {
   border-radius: var(--info-border-card);
   padding: 0.5rem;
   font-size: inherit;
+  font-family: inherit;
   outline: none;
 
   &:focus {

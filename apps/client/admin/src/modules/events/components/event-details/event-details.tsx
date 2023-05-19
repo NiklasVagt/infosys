@@ -11,7 +11,6 @@ import Form from '../../../common/components/form/form';
 export interface EventDetailsProps extends EventDto {}
 
 export function EventDetails({ id, ...props }: EventDetailsProps) {
-  console.log(props.date);
   const [name, setName] = useState(props.name);
   const [description, setDescription] = useState(props.description);
   const [author, setAuthor] = useState(props.author);
@@ -89,6 +88,7 @@ export function EventDetails({ id, ...props }: EventDetailsProps) {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         prefix={<Icon icon="carbon:text-font" />}
+        area
       >
         Description
       </FormField>

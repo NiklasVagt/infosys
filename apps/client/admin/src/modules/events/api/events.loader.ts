@@ -1,7 +1,7 @@
 import { EventDto } from '@infosys/dtos';
 import axios from 'axios';
 import { LoaderFunction, redirect } from 'react-router-dom';
-import { tokenStore } from '../../common/store/user.store';
+import { tokenStore, userState } from '../../common/store/user.store';
 
 export const eventListLoader: LoaderFunction = () =>
   axios
@@ -31,10 +31,15 @@ export const eventItemLoader: LoaderFunction = ({ params }) =>
     }))
     .catch((error) => error.response.data || { message: error.message });
 
-export const eventCreateLoader: LoaderFunction = (): EventDto => ({
-  id: -1,
-  name: '',
-  description: '',
-  author: '',
-  date: new Date(),
-});
+export const eventCreateLoader: LoaderFunction =
+  async (): Promise<EventDto> => {
+    const user = await userState.user;
+
+    return {
+      id: -1,
+      name: '',
+      description: '',
+      author: user?.username ?? '',
+      date: new Date(),
+    };
+  };

@@ -2,4 +2,9 @@
   display: flex;
   gap: 0.5rem;
   align-items: center;
+
+  &.start {
+    margin-top: 0.5rem;
+    place-self: flex-start;
+  }
 }
