@@ -51,6 +51,11 @@ button {
     --color-text: var(--info-error-text);
   }
 
+  &.host {
+    --color-bg: var(--host-red);
+    --color-text: var(--host-red);
+  }
+
   &.fill.fill.fill {
     background-color: hsl(var(--color-bg));
     color: hsl(var(--color-text));

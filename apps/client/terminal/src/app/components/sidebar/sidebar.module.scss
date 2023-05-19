@@ -3,6 +3,14 @@
 }
 
 .container {
-  background-color: hsla(var(--info-bg-text), 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: hsla(var(--info-primary), 0.1);
   padding: var(--sidebar-padding);
+}
+
+.qr-code {
+  width: 100%;
+  height: fit-content;
 }

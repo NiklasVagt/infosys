@@ -1,27 +1,15 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { Outlet } from 'react-router-dom';
 import styles from './app.module.scss';
-import Category from './components/category/category';
 import Sidebar from './components/sidebar/sidebar';
 
 export function App() {
   return (
     <div className={styles['shell']}>
-      <h1 style={{ gridArea: 'heading', placeSelf: 'center' }}>
-        Infosytem ETI
-      </h1>
+      <h1>Infosytem ETI</h1>
 
-      <Sidebar
-        style={{ gridArea: 'sidebar' }}
-        className={styles['sidebar']}
-      ></Sidebar>
+      <Sidebar style={{ gridArea: 'sidebar' }} className={styles['sidebar']} />
 
-      <Category
-        style={{
-          gridArea: 'category',
-          maxWidth: 'fit-content',
-          placeSelf: 'center',
-        }}
-      ></Category>
+      <Outlet></Outlet>
     </div>
   );
 }

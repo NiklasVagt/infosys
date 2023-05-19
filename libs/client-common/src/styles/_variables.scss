@@ -35,6 +35,8 @@ $shadow: color.scale($shadow-bg, $lightness: -95%, $saturation: -10%);
   --info-error: #{$error};
   --info-error-text: #{$error-text};
 
+  --host-red: 357, 76%, 51%;
+
   // Spacing
   --info-border-card: 0.25rem;
 

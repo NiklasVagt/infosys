@@ -2,7 +2,7 @@
 .shell {
   display: grid;
 
-  gap: 1rem;
+  row-gap: 4rem;
   grid-template-areas:
     'heading sidebar'
     'category sidebar';
@@ -14,4 +14,9 @@
 
   background-color: hsl(var(--info-bg));
   color: hsl(var(--info-bg-text));
+
+  h1 {
+    grid-area: heading;
+    place-self: center;
+  }
 }
