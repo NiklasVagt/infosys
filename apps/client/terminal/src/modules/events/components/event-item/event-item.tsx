@@ -26,7 +26,18 @@ export function EventItem({
       <h3 className={styles['title']}>{event.name}</h3>
 
       {/* Description */}
-      <p className={styles['description']}>{event.description}</p>
+      <div className={styles['description']}>
+        {event.description.split('\n\n').map((paragraph) => (
+          <p>
+            {paragraph.split('\n').map((line, index, lines) => (
+              <>
+                {line}
+                {index < lines.length - 1 && <br></br>}
+              </>
+            ))}
+          </p>
+        ))}
+      </div>
 
       {/* Stats */}
       <div className={styles['stats']}>
