@@ -90,6 +90,5 @@
       }
     }
   },
-  "tags": [],
-  "implicitDependencies": ["auth", "events"]
+  "tags": []
 }
