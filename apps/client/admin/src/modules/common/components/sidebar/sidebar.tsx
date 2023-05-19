@@ -1,20 +1,20 @@
-import { Link, LinkProps } from 'react-router-dom';
+import { LinkProps, NavLink } from 'react-router-dom';
 import styles from './sidebar.module.scss';
 import classNames from 'classnames';
 
-export interface SidebarProps {
+export interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
   items: Array<LinkProps & { label: string }>;
 }
 
-export function Sidebar({ items }: SidebarProps) {
+export function Sidebar({ items, className, ...props }: SidebarProps) {
   return (
-    <nav className={styles['container']}>
+    <nav className={classNames(styles['container'], className)} {...props}>
       <ul className={styles['list']}>
         {items.map(({ label, ...item }) => (
           <li key={label}>
-            <Link {...item} className={classNames(item.className, 'ghost')}>
+            <NavLink {...item} className={classNames(item.className, 'ghost')}>
               {label}
-            </Link>
+            </NavLink>
           </li>
         ))}
       </ul>

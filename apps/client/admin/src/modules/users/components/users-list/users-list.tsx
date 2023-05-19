@@ -1,7 +1,7 @@
 import { ErrorDto, UserDto, isErrorDto } from '@infosys/dtos';
 import styles from './users-list.module.scss';
 import classNames from 'classnames';
-import { Link, Outlet, useLoaderData } from 'react-router-dom';
+import { NavLink, Outlet, useLoaderData } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 
 // eslint-disable-next-line
@@ -11,32 +11,32 @@ export function UsersList({ className, ...props }: UsersListProps) {
   const usersOrError = useLoaderData() as UserDto[] | ErrorDto;
 
   return (
-    <div {...props} className={classNames(className, styles['container'])}>
+    <div {...props} className={classNames(className, 'list-container')}>
       {isErrorDto(usersOrError) ? (
         <div className="error-message">{usersOrError.message}</div>
       ) : (
-        <ol className={styles['list']}>
+        <ol className={classNames('list')}>
           {usersOrError.map((user) => (
             <li key={user.id}>
-              <Link to={`/users/${user.id}`} className="ghost">
+              <NavLink to={`/users/${user.id}`} className="ghost">
                 {user.username}
-              </Link>
+              </NavLink>
             </li>
           ))}
 
           <li>
-            <Link
+            <NavLink
               to={`/users/create`}
               className="secondary outline inline-icon"
             >
               <Icon icon="carbon:add"></Icon>
               Add user
-            </Link>
+            </NavLink>
           </li>
         </ol>
       )}
 
-      <div className={styles['item']}>
+      <div className={classNames('item')}>
         <Outlet></Outlet>
       </div>
     </div>

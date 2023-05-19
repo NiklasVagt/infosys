@@ -1,0 +1,45 @@
+.container {
+  display: grid;
+  grid-template-areas: 'toggle heading title avatar';
+  grid-template-columns: auto auto 1fr auto;
+  gap: 1rem;
+  align-items: center;
+  place-items: center;
+  height: var(--navbar-height);
+  padding: 0 1rem;
+
+  button {
+    grid-area: toggle;
+    font-size: 1.5rem;
+  }
+
+  h1 {
+    grid-area: title;
+    display: flex;
+    gap: 1rem;
+  }
+
+  .heading {
+    grid-area: heading;
+    font-weight: 200;
+  }
+
+  .title {
+    grid-area: title;
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+}
+
+.avatar {
+  grid-area: avatar;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  font-weight: 200;
+}
+
+.user {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}

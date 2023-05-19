@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { LoaderFunction } from 'react-router-dom';
+import { LoaderFunction, redirect } from 'react-router-dom';
 
 export const userListLoader: LoaderFunction = () =>
   axios
@@ -10,7 +10,7 @@ export const userListLoader: LoaderFunction = () =>
     })
     .then((response) => response.data)
     .catch((error) => {
-      console.log(error);
+      if (error.response.status === 403) throw redirect('/login');
       return error.response.data || { message: error.message };
     });
 

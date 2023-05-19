@@ -1,4 +1,32 @@
 .container {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    'navbar navbar'
+    'sidebar content';
   width: 100vw;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  background-color: hsla(var(--info-primary), 0.1);
+
+  overflow: hidden;
+  width: 10rem;
+  transition: 400ms cubic-bezier(0.19, 1, 0.22, 1) all;
+}
+
+.navbar {
+  grid-area: navbar;
+  background-color: hsla(var(--info-primary), 0.1);
+}
+
+.content {
+  grid-area: content;
+}
+
+.closed {
+  width: 0;
+  padding: 1rem 0 !important;
 }

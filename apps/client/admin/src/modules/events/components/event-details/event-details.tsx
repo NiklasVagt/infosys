@@ -1,47 +1,45 @@
-import { UserDto } from '@infosys/dtos';
-import styles from './user-details.module.scss';
 import { useMemo, useState } from 'react';
-import { Icon } from '@iconify/react';
-import { useUpsertUser } from '../../api/use-upsert-user';
-import { useDeleteUser } from '../../api/use-delete-user';
-import classNames from 'classnames';
+import styles from './event-details.module.scss';
 import { useNavigate, useRevalidator } from 'react-router-dom';
-import { Prisma } from '@infosys/auth-prisma';
+import { useUpsertEvent } from '../../api/use-upsert-event';
+import { useDeleteEvent } from '../../api/use-delete-event';
+import classNames from 'classnames';
+import { Icon } from '@iconify/react';
+import { EventDto } from '@infosys/dtos';
 import FormField from '../../../common/components/form-field/form-field';
 
 /* eslint-disable-next-line */
-export interface UserDetailsProps extends UserDto {}
+export interface EventDetailsProps extends EventDto {}
 
-export function UserDetails({ id, ...props }: UserDetailsProps) {
-  const [username, setUsername] = useState(props.username);
-  const [password, setPassword] = useState('');
-  const [passwordRepeat, setPasswordRepeat] = useState('');
+export function EventDetails({ id, ...props }: EventDetailsProps) {
+  console.log(props.date);
+  const [name, setName] = useState(props.name);
+  const [description, setDescription] = useState(props.description);
+  const [author, setAuthor] = useState(props.author);
+  const [date, setDate] = useState(props.date);
+
   const { revalidate } = useRevalidator();
   const navigate = useNavigate();
 
   const [error, setError] = useState<string | null>();
 
-  const [, upsertError, create, update] = useUpsertUser();
-  const [, deleteError, remove] = useDeleteUser();
+  const [, upsertError, create, update] = useUpsertEvent();
+  const [, deleteError, remove] = useDeleteEvent();
 
   useMemo(() => {
     setError(upsertError || deleteError);
   }, [upsertError, deleteError]);
 
-  const isNewUser = +id === -1;
+  const isNewEvent = +id === -1;
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (password !== passwordRepeat) return setError('Passwords do not match');
-
-    if (isNewUser) {
-      const user = await create({ username, password });
-      if (user) navigate(`/users/${user?.id}`);
+    if (isNewEvent) {
+      const event = await create({ name, description, author, date });
+      if (event) navigate(`/events/${event?.id}`);
     } else {
-      const dto: Prisma.UserUpdateInput = { username };
-      if (password) dto.password = password;
-      await update(id, dto);
+      await update(id, { name, description, author, date });
     }
 
     revalidate();
@@ -49,50 +47,54 @@ export function UserDetails({ id, ...props }: UserDetailsProps) {
 
   const handleDelete = async () => {
     await remove(id);
-    navigate('/users');
+    navigate('/events');
     revalidate();
   };
 
   return (
     <form className={classNames('form')}>
       {/* id */}
-      {!isNewUser && (
+      {!isNewEvent && (
         <FormField id="user-id" type="text" disabled value={id}>
           ID
         </FormField>
       )}
 
-      {/* username */}
+      {/* name */}
       <FormField
-        id="username"
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
+        id="name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
       >
-        Username
+        Name
       </FormField>
 
-      {/* password */}
-
+      {/* description */}
       <FormField
-        id="password"
-        type="password"
-        value={password}
-        placeholder="***"
-        onChange={(e) => setPassword(e.target.value)}
+        id="description"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
       >
-        New password
+        Description
       </FormField>
 
-      {/* passwordRepeat */}
+      {/* author */}
       <FormField
-        id="passwordRepeat"
-        type="password"
-        value={passwordRepeat}
-        placeholder="***"
-        onChange={(e) => setPasswordRepeat(e.target.value)}
+        id="author"
+        value={author}
+        onChange={(e) => setAuthor(e.target.value)}
       >
-        Repeat password
+        Author
+      </FormField>
+
+      {/* date */}
+      <FormField
+        id="date"
+        type="datetime-local"
+        value={date.toISOString().slice(0, 16)}
+        onChange={(e) => setDate(new Date(e.target.value))}
+      >
+        Date
       </FormField>
 
       {/* error */}
@@ -117,7 +119,7 @@ export function UserDetails({ id, ...props }: UserDetailsProps) {
         </li>
 
         {/* delete */}
-        {!isNewUser && (
+        {!isNewEvent && (
           <li>
             <button
               type="button"
@@ -134,4 +136,4 @@ export function UserDetails({ id, ...props }: UserDetailsProps) {
   );
 }
 
-export default UserDetails;
+export default EventDetails;

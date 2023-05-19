@@ -8,6 +8,13 @@ import {
   userListLoader,
 } from '../modules/users/api/user.loader';
 import App from './app';
+import EventItemPage from '../modules/events/pages/event-item-page';
+import EventListPage from '../modules/events/pages/event-list-page';
+import {
+  eventCreateLoader,
+  eventItemLoader,
+  eventListLoader,
+} from '../modules/events/api/events.loader';
 
 export const routes: RouteObject[] = [
   {
@@ -45,7 +52,20 @@ export const routes: RouteObject[] = [
       },
       {
         path: '/events',
-        element: <div>Events</div>,
+        element: <EventListPage></EventListPage>,
+        loader: eventListLoader,
+        children: [
+          {
+            path: 'create',
+            element: <EventItemPage></EventItemPage>,
+            loader: eventCreateLoader,
+          },
+          {
+            path: ':id',
+            element: <EventItemPage></EventItemPage>,
+            loader: eventItemLoader,
+          },
+        ],
       },
     ],
   },

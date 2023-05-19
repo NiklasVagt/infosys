@@ -21,6 +21,7 @@
     "react-router-dom": "^6.11.1",
     "swagger-ui-express": "^4.6.3",
     "tslib": "^2.3.0",
+    "valtio": "^1.10.5",
     "zod": "^3.21.4"
   },
   "devDependencies": {

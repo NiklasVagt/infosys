@@ -25,6 +25,17 @@ button {
     transform: scale(1.05);
   }
 
+  &.active.active.active {
+    background-color: hsla(var(--info-secondary));
+    color: hsl(var(--info-secondary-text));
+    font-weight: 500;
+
+    &:hover {
+      background-color: hsla(var(--info-secondary));
+      color: hsl(var(--info-secondary-text));
+    }
+  }
+
   &.primary {
     --color-bg: var(--info-primary);
     --color-text: var(--info-primary-text);

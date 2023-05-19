@@ -19,6 +19,9 @@ $shadow: color.scale($shadow-bg, $lightness: -95%, $saturation: -10%);
   // Sidebar
   --sidebar-width: 8rem;
 
+  // Navbar
+  --navbar-height: 6rem;
+
   // Colors
   --info-bg: #{$bg};
   --info-bg-text: #{$bg-text};
@@ -36,10 +39,12 @@ $shadow: color.scale($shadow-bg, $lightness: -95%, $saturation: -10%);
   --info-border-card: 0.25rem;
 
   // Shadow
-
   --info-shadow-xs: 0 1px 3px 0 #{$shadow}, 0 2px 6px 0 #{$shadow};
   --info-shadow-sm: 0 2px 6px 0 #{$shadow}, 0 4px 12px 0 #{$shadow};
   --info-shadow-md: 0 3px 12px 0 #{$shadow}, 0 5px 24px 0 #{$shadow};
   --info-shadow-lg: 0 6px 24px 0 #{$shadow}, 0 8px 36px 0 #{$shadow},
     0 3px 24px 0 #{$shadow};
+
+  // Transitions
+  --info-transition: cubic-bezier(0.19, 1, 0.22, 1);
 }

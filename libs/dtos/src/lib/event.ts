@@ -13,7 +13,9 @@ export const eventSchema = z.object({
   name: z.string(),
   description: z.string(),
   author: z.string(),
-  date: z.date().min(new Date(), { message: 'Date must be in the future' }),
+  date: z.coerce
+    .date()
+    .min(new Date(), { message: 'Date must be in the future' }),
 });
 
 /**
