@@ -19,6 +19,10 @@ export const routes: RouteObject[] = [
         element: <EventsPage></EventsPage>,
         loader: eventListLoader,
       },
+      {
+        path: '/person',
+        element: <PersonPage></PersonPage>,
+      },
     ],
   },
 ];
