@@ -13,7 +13,7 @@ export const categories: CategoryItemList[] = [
       {
         title: 'Person',
         icon: <Icon icon="carbon:person" />,
-        href: '/locations/person',
+        href: '/locations/persons',
       },
       {
         title: 'Rooms',
