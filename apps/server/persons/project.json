@@ -1,0 +1,94 @@
+{
+  "name": "persons",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/server/persons/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "dependsOn": ["^prisma-generate", "prisma-generate"],
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/server/persons",
+        "main": "apps/server/persons/src/main.ts",
+        "tsConfig": "apps/server/persons/tsconfig.app.json",
+        "assets": ["apps/server/persons/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/server/persons/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/js:node",
+      "defaultConfiguration": "development",
+      "dependsOn": ["^prisma-generate", "prisma-generate", "prisma-deploy"],
+      "options": {
+        "buildTarget": "persons:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "persons:build:development"
+        },
+        "production": {
+          "buildTarget": "persons:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/server/persons/**/*.ts"]
+      }
+    },
+    "prisma-generate": {
+      "executor": "@nx-tools/nx-prisma:generate",
+      "options": {
+        "schema": "apps/server/persons/src/prisma/schema.prisma"
+      }
+    },
+    "prisma-migrate": {
+      "executor": "@nx-tools/nx-prisma:migrate",
+      "options": {
+        "schema": "apps/server/persons/src/prisma/schema.prisma"
+      }
+    },
+    "prisma-pull": {
+      "executor": "@nx-tools/nx-prisma:pull",
+      "options": {
+        "schema": "apps/server/persons/src/prisma/schema.prisma"
+      }
+    },
+    "prisma-push": {
+      "executor": "@nx-tools/nx-prisma:push",
+      "options": {
+        "schema": "apps/server/persons/src/prisma/schema.prisma"
+      }
+    },
+    "prisma-deploy": {
+      "executor": "@nx-tools/nx-prisma:deploy",
+      "options": {
+        "schema": "apps/server/persons/src/prisma/schema.prisma"
+      }
+    },
+    "prisma-status": {
+      "executor": "@nx-tools/nx-prisma:status",
+      "options": {
+        "schema": "apps/server/persons/src/prisma/schema.prisma"
+      }
+    },
+    "prisma-studio": {
+      "executor": "@nx-tools/nx-prisma:studio",
+      "options": {
+        "schema": "apps/server/persons/src/prisma/schema.prisma"
+      }
+    }
+  },
+  "tags": []
+}

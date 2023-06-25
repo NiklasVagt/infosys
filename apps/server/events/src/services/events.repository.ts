@@ -5,7 +5,7 @@ import { handlePrismaError } from '@infosys/node-common';
  * Repository to interact with events database.
  *
  * This is an abstraction over the DB. Ideally when we switch the underlying databse, we only
- * need to adjust his implementation and not the usage within our routers/controllers.
+ * need to adjust this implementation and not the usage within our routers/controllers.
  */
 export class EventsRepository {
   private get events() {

@@ -5,7 +5,7 @@ import { z } from 'zod';
  * @property {number} id.required - Person's id
  * @property {string} firstName.required - Person's first name
  * @property {string} lastName.required - Person's last name
- * @property {string} occupation.required - Person occupation
+ * @property {string} occupation.required - Person's occupation
  */
 
 export const personSchema = z.object({
