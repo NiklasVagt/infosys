@@ -16,6 +16,11 @@ import {
   eventListLoader,
 } from '../modules/events/api/events.loader';
 import ErrorState from '../modules/common/components/error-state/error-state';
+import {
+  personListLoader,
+  personCreateLoader,
+  personItemLoader,
+} from '../modules/persons/api/persons.loader';
 
 export const routes: RouteObject[] = [
   {
@@ -47,6 +52,19 @@ export const routes: RouteObject[] = [
       {
         path: '/locations',
         element: <div>Locations</div>,
+        loader: personListLoader,
+        children: [
+          {
+            path: 'create',
+            element: <PersonItemPage></PersonItemPage>,
+            loader: personCreateLoader,
+          },
+          {
+            path: ':id',
+            element: <PersonItemPage></PersonItemPage>,
+            loader: personItemLoader,
+          },
+        ],
       },
       {
         path: '/persons',
