@@ -4,7 +4,7 @@ import { tokenStore } from '../../common/store/user.store';
 
 export const personListLoader: LoaderFunction = () =>
   axios
-    .get('api/persons', {
+    .get('/api/persons', {
       headers: {
         Authorization: `Bearer ${tokenStore.token}`,
       },
