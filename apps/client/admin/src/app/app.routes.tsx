@@ -21,6 +21,8 @@ import {
   personCreateLoader,
   personItemLoader,
 } from '../modules/persons/api/persons.loader';
+import PersonItemPage from '../modules/persons/pages/person-item-page';
+import PersonListPage from '../modules/persons/pages/person-list-page';
 
 export const routes: RouteObject[] = [
   {
@@ -52,6 +54,10 @@ export const routes: RouteObject[] = [
       {
         path: '/locations',
         element: <div>Locations</div>,
+      },
+      {
+        path: '/persons',
+        element: <PersonListPage></PersonListPage>,
         loader: personListLoader,
         children: [
           {
@@ -65,10 +71,6 @@ export const routes: RouteObject[] = [
             loader: personItemLoader,
           },
         ],
-      },
-      {
-        path: '/persons',
-        element: <div>Persons</div>,
       },
       {
         path: '/events',
