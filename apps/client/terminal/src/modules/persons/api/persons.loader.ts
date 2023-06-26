@@ -6,5 +6,5 @@ export const personListLoader: LoaderFunction = () =>
   axios
     .get<PersonDto[]>('/api/persons')
     .then((response) =>
-      response.data.map((person) => ({ ...person, lastName: person.lastName }))
+      response.data.map((person) => ({ ...person, id: person.id }))
     );

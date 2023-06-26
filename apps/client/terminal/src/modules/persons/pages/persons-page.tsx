@@ -4,9 +4,9 @@ import { PersonDto } from '@infosys/dtos';
 import PersonItem from '../components/person-item/person-item';
 
 /*eslint-disable-next-line */
-export interface PersonPageProps {}
+export interface PersonsPageProps {}
 
-export function PersonsPage(props: PersonPageProps) {
+export function PersonsPage(props: PersonsPageProps) {
   const persons = useLoaderData() as PersonDto[];
 
   return (
@@ -17,7 +17,7 @@ export function PersonsPage(props: PersonPageProps) {
         {persons.map((person) => (
           <PersonItem
             as="li"
-            key={person.lastName}
+            key={person.id}
             person={person}
             className={styles['card']}
           ></PersonItem>
