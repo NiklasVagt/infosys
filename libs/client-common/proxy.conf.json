@@ -3,6 +3,10 @@
     "target": "http://localhost:3333",
     "secure": false
   },
+  "/api/persons": {
+    "target": "http://localhost:3336",
+    "secure": false
+  },
   "/api/login": {
     "target": "http://localhost:3334",
     "secure": false
